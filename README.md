@@ -1,6 +1,6 @@
-#PWA DEMO
+# PWA DEMO
 
-##Steps to install
+## Steps to install
 
 1. Copy environment file
    <br/><br/>
@@ -22,9 +22,9 @@
     By default, the app is served in [localhost:8080](http://localhost:8080)
 
     <br/><br/>
-##Notes
+## Notes
 
-###Down Container
+### Down Container
 
 To down the docker container execute
 ```shell
