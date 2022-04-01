@@ -19,6 +19,7 @@ const APP_SHELL_IMMUTABLE = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
   'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
   'https://use.fontawesome.com/releases/v5.3.1/webfonts/fa-solid-900.woff2',
+  'js/libs/jquery.js',
 ];
 
 self.addEventListener('install', e => {
