@@ -53,7 +53,28 @@
 </nav>
 
 <main>
-  <h1>My App</h1>
+  <h1>My Pwa App</h1>
+  <p>App to listen devices bluetooth</p>
+  <ul>
+    <li>To start listening click on button "Start to Listen"</li>
+    <li>To stop listening click again on button</li>
+  </ul>
+  <button
+    id="listen-btn"
+    class="btn btn-primary"
+    style="margin: 10px 0"
+  >
+    Start to Listen
+  </button>
+  <div class="form-floating">
+    <textarea
+      id="textarea"
+      class="form-control"
+      style="height: 500px;"
+      readonly
+    ></textarea>
+    <label for="textarea">Listening...</label>
+  </div>
 </main>
 
 <script
