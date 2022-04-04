@@ -1,6 +1,6 @@
 
 if (!!navigator.serviceWorker) {
-  navigator.serviceWorker.register('/serviceWorker.js')
+  navigator.serviceWorker.register('/service-worker.js')
 }
 
 let installBtn = $('#install-btn');
