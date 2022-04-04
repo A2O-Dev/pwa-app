@@ -6,6 +6,7 @@ if (!!navigator.serviceWorker) {
 let installBtn = $('#install-btn');
 let listenBtn = $('#listen-btn');
 let textArea = $('#textarea');
+let labelTextArea = $('#label-textarea');
 
 let deferredPrompt;
 
@@ -46,11 +47,13 @@ $(function () {
         textArea.focus();
       }, 100);
       listenBtn.text('Listening...');
+      labelTextArea.text('Listening...');
     } else {
       listenBtn.removeClass('btn-success');
       listenBtn.addClass('btn-primary');
       clearInterval(interval);
       listenBtn.text('Start to Listen');
+      labelTextArea.text('Stopped');
     }
   })
 
