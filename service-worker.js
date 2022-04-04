@@ -48,6 +48,10 @@ self.addEventListener('activate', e => {
         if (key !== DYNAMIC_CACHE && key.includes('dynamic')) {
           return caches.delete(key);
         }
+
+        if (key !== IMMUTABLE_CACHE && key.includes('immutable')) {
+          return caches.delete(key);
+        }
       });
     });
 
@@ -63,7 +67,7 @@ self.addEventListener('fetch', e => {
           .then(updatedResponse => {
             caches.keys()
               .then(keys => {
-                for (let key of keys) {
+                keys.forEach(key => {
                   caches.open(key)
                     .then(cache => cache.match(e.request))
                     .then(cacheMatch => {
@@ -71,7 +75,7 @@ self.addEventListener('fetch', e => {
                         updateCache(key, e.request, updatedResponse)
                       }
                     })
-                }
+                });
               })
           })
         return res;
