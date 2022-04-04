@@ -59,11 +59,26 @@ self.addEventListener('fetch', e => {
   const response = caches.match(e.request)
     .then((res) => {
       if (res) {
+        fetch(e.request)
+          .then(updatedResponse => {
+            caches.keys()
+              .then(keys => {
+                for (let key of keys) {
+                  caches.open(key)
+                    .then(cache => cache.match(e.request))
+                    .then(cacheMatch => {
+                      if (!!cacheMatch) {
+                        updateCache(key, e.request, updatedResponse)
+                      }
+                    })
+                }
+              })
+          })
         return res;
       } else {
         return fetch(e.request)
           .then(newRes => {
-            return updateDynamicCache(DYNAMIC_CACHE, e.request, newRes);
+            return updateCache(DYNAMIC_CACHE, e.request, newRes);
           });
       }
     });
