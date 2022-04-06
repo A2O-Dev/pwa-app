@@ -2,15 +2,76 @@ if (!!navigator.serviceWorker) {
   navigator.serviceWorker.register('/service-worker.js')
 }
 
+let readValue = '';
+
 let installBtn = $('#install-btn');
 let listenBtn = $('#listen-btn');
 let textArea = $('#textarea');
-let labelTextArea = $('#label-textarea');
 
 let deferredPrompt;
 
 let listening = false;
-let interval;
+let buttonListeningInterval;
+
+const onButtonListening = () => {
+  listenBtn.blur();
+  listenBtn.removeClass('btn-primary');
+  listenBtn.addClass('btn-success');
+  listenBtn.text('Listening...');
+  listenBtn.css('width', '105px');
+  buttonListeningInterval = setInterval(() => {
+    let text = '';
+    switch (listenBtn.text()) {
+      case 'Listening':
+        text = 'Listening.';
+        break;
+      case 'Listening.':
+        text = 'Listening..';
+        break;
+      case 'Listening..':
+        text = 'Listening...';
+        break;
+      case 'Listening...':
+        text = 'Listening';
+        break;
+      default:
+        break;
+    }
+    listenBtn.text(text);
+  }, 500);
+}
+
+const offButtonListening = () => {
+  listenBtn.blur();
+  listenBtn.removeClass('btn-success');
+  listenBtn.addClass('btn-primary');
+  clearInterval(buttonListeningInterval);
+  listenBtn.css('width', '130px');
+  listenBtn.text('Start to Listen');
+}
+
+const writeValueInHtml = (value) => {
+  const htmlToShow = value.replaceAll('\n', '</br>');
+  textArea.html(htmlToShow);
+}
+
+const captureValue = ({key}) => {
+  if (!['Shift', 'Control', 'AltGraph', 'Alt', 'CapsLock', 'Tab', 'Backspace', 'Escape'].includes(key)) {
+    readValue += key === 'Enter' ? '\n' : key;
+    writeValueInHtml(readValue);
+  }
+}
+
+listenBtn.on('click', () => {
+  listening = !listening;
+  if (listening) {
+    $(window).on('keyup', captureValue);
+    onButtonListening();
+  } else {
+    $(window).off('keyup');
+    offButtonListening();
+  }
+});
 
 installBtn.on('click', () => {
   if (deferredPrompt !== null) {
@@ -24,36 +85,6 @@ installBtn.on('click', () => {
       });
   }
 });
-
-listenBtn.on('click', () => {
-  listening = !listening;
-
-  if (listening) {
-    listenBtn.removeClass('btn-primary');
-    listenBtn.addClass('btn-success');
-    interval = setInterval(() => {
-      textArea.focus();
-    }, 100);
-    listenBtn.text('Listening...');
-    labelTextArea.text('Listening...');
-  } else {
-    listenBtn.removeClass('btn-success');
-    listenBtn.addClass('btn-primary');
-    clearInterval(interval);
-    listenBtn.text('Start to Listen');
-    labelTextArea.text('Stopped');
-  }
-})
-
-window.addEventListener('keyup', ({key}) => {
-  if (!['Shift', 'Control', 'AltGraph', 'Alt', 'CapsLock', 'Tab', 'Backspace', 'Escape'].includes(key)) {
-    if (key === 'Enter') {
-      textArea.val(`${textArea.val()}\n`);
-    } else {
-      textArea.val(`${textArea.val()}${key}`);
-    }
-  }
-})
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
