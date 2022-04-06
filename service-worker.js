@@ -1,6 +1,6 @@
 importScripts('js/sw-utils.js');
 
-const CACHE_VERSION = 'v0.0.1';
+const CACHE_VERSION = 'v0.0.2';
 
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
@@ -34,6 +34,8 @@ self.addEventListener('install', e => {
     cacheStatic,
     cacheImmutable
   ]));
+
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
