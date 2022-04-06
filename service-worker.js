@@ -1,6 +1,6 @@
 importScripts('js/sw-utils.js');
 
-const CACHE_VERSION = 'v0.0.2';
+const CACHE_VERSION = 'v0.0.3';
 
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
@@ -8,7 +8,6 @@ const IMMUTABLE_CACHE = `immutable-${CACHE_VERSION}`;
 
 const APP_SHELL = [
   '/',
-  'index.html',
   'css/styles.css',
   'img/favicon.ico',
   'js/app.js',
