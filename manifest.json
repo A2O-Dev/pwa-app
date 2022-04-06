@@ -1,7 +1,7 @@
 {
   "short_name": "A2O Dev PWA",
   "name": "A2O Dev PWA Demo",
-  "start_url": "index.html",
+  "start_url": "/",
   "background_color": "#FFFFFF",
   "display": "standalone",
   "theme_color": "#00C6DA",
