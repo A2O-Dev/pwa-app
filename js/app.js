@@ -6,6 +6,7 @@ let readValue = '';
 
 let installBtn = $('#install-btn');
 let listenBtn = $('#listen-btn');
+let clearBtn = $('#clear-btn');
 let textArea = $('#textarea');
 
 let deferredPrompt;
@@ -19,6 +20,7 @@ const onButtonListening = () => {
   listenBtn.addClass('btn-success');
   listenBtn.text('Listening...');
   listenBtn.css('width', '105px');
+  clearBtn.show();
   buttonListeningInterval = setInterval(() => {
     let text = '';
     switch (listenBtn.text()) {
@@ -48,6 +50,7 @@ const offButtonListening = () => {
   clearInterval(buttonListeningInterval);
   listenBtn.css('width', '130px');
   listenBtn.text('Start to Listen');
+  clearBtn.hide();
 }
 
 const writeValueInHtml = (value) => {
@@ -62,9 +65,18 @@ const captureValue = ({key}) => {
   }
 }
 
+const clearReadValue = () => {
+  readValue = '';
+  writeValueInHtml(readValue);
+}
+
+clearBtn.on('click', clearReadValue);
+clearBtn.on('focus', () => clearBtn.blur());
+
 listenBtn.on('click', () => {
   listening = !listening;
   if (listening) {
+    clearReadValue();
     $(window).on('keyup', captureValue);
     onButtonListening();
   } else {

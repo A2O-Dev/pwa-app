@@ -63,18 +63,27 @@
 
 <main>
   <h1>My Pwa App</h1>
-  <p>App to listen bluetooth devices</p>
+  <p>App that listens to bluetooth devices</p>
   <ul>
     <li>To start listening click on button "Start to Listen"</li>
     <li>To stop listening click again on button</li>
   </ul>
-  <button
-    id="listen-btn"
-    class="btn btn-primary"
-    style="margin: 10px 0; width: 130px; text-align: left;"
-  >
-    Start to Listen
-  </button>
+  <div style="display: flex; flex-direction: row; margin: 10px 0;">
+    <button
+      id="listen-btn"
+      class="btn btn-primary"
+      style="width: 130px; text-align: left; margin-right: 15px"
+    >
+      Start to Listen
+    </button>
+    <button
+      id="clear-btn"
+      class="btn btn-secondary"
+      style="color: white; display: none;"
+    >
+      Clear
+    </button>
+  </div>
   <div>
     <p id="textarea" style="height: 400px;"></p>
   </div>
